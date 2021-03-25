@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Nouste</string>
+    <string name="search">Search</string>
+    <string name="back">Back</string>
+    <string name="to_do">To do</string>
+    <string name="notes">Notes</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_text">Note Text</string>
+</resources>
