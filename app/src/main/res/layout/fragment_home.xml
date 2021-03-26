@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="date"
             type="String" />
@@ -16,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:paddingBottom="@dimen/_10sdp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -84,15 +87,19 @@
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/grayText"
+                app:hintTextColor="@color/grayText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:startIconDrawable="@drawable/ic_search">
+                app:startIconDrawable="@drawable/ic_search"
+                tools:targetApi="p">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSearchField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search" />
+                    android:hint="@string/search"
+                    android:textCursorDrawable="@drawable/cursor_no_padding" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +109,6 @@
             android:id="@+id/rvNotesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

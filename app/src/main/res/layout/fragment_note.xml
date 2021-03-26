@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="isInputValid"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,8 +43,9 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/karla_bold"
-                    android:maxWidth="@dimen/_160sdp"
+                    android:maxWidth="@dimen/_155sdp"
                     android:maxHeight="?attr/actionBarSize"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -49,7 +59,8 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/poppins"
                     android:text="@string/back"
                     android:textColor="@color/black"
@@ -57,6 +68,18 @@
                     app:layout_constraintBottom_toBottomOf="@id/noteToolBar"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/noteToolBar" />
+
+                <ImageView
+                    android:id="@+id/btnSaveNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="@{isInputValid ? View.VISIBLE : View.GONE, default=gone}"
+                    app:layout_constraintBottom_toBottomOf="@+id/noteToolBar"
+                    app:layout_constraintEnd_toEndOf="@+id/noteToolBar"
+                    app:layout_constraintTop_toTopOf="@+id/noteToolBar"
+                    app:tint="@color/black" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,42 +125,54 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNoteTitle"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@null"
-            android:fontFamily="@font/poppins_bold"
             android:hint="@string/note_title"
-            android:inputType="text|textNoSuggestions"
-            android:textSize="@dimen/_27ssp"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+            android:inputType="text|textNoSuggestions|textMultiLine"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:boxStrokeColor="@color/grayText"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/grayText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNoteTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textCursorDrawable="@drawable/cursor_with_padding"
+                android:textSize="@dimen/_20ssp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/etNoteText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:background="@null"
             android:hint="@string/note_text"
-            android:inputType="text|textNoSuggestions"
+            android:inputType="text|textNoSuggestions|textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
         <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rivNoteImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:scaleType="centerCrop"
-            android:src="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+            app:layout_constraintTop_toBottomOf="@+id/etNoteText"
             app:riv_corner_radius="10dip" />
 
         <LinearLayout
@@ -151,20 +186,15 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
+                android:id="@+id/btnAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:src="@drawable/ic_image"
                 app:tint="@color/black" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:src="@drawable/ic_text"
-                app:tint="@color/black" />
-
             <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/btnSetGradient"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -172,10 +202,11 @@
                 android:src="@drawable/main_gradient"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+                app:layout_constraintTop_toBottomOf="@+id/etNoteText"
                 app:riv_corner_radius="30dip" />
 
             <ImageView
+                android:id="@+id/btnShowGradients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
