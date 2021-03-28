@@ -6,4 +6,5 @@
     <string name="notes">Notes</string>
     <string name="note_title">Note Title</string>
     <string name="note_text">Note Text</string>
+    <string name="todo">Todo…</string>
 </resources>

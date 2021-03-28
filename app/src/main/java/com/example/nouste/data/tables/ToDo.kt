@@ -5,18 +5,11 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "table_todo",
-    foreignKeys = [ForeignKey(
-        entity = Note::class,
-        parentColumns = ["id"],
-        childColumns = ["noteId"],
-        onDelete = CASCADE
-    )]
-)
+@Entity(tableName = "table_todo")
 data class ToDo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val taskName: String,
-    val noteId: Int
+    var taskName: String,
+    var done: Boolean,
+    var noteTitle: String
 )

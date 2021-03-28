@@ -9,12 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.nouste.R
+import com.example.nouste.adapters.HomeListAdapter
 import com.example.nouste.databinding.FragmentHomeBinding
 import com.example.nouste.viewmodels.HomeViewModel
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeListAdapter: HomeListAdapter
 
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -33,6 +38,28 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setDate()
         setupListeners()
+        observeNotes()
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        homeListAdapter = HomeListAdapter()
+        binding.rvNotesList.apply {
+            adapter = homeListAdapter
+            val flexBoxLayoutManager = FlexboxLayoutManager(context)
+            flexBoxLayoutManager.flexDirection = FlexDirection.COLUMN
+            flexBoxLayoutManager.justifyContent = JustifyContent.FLEX_START
+            layoutManager = flexBoxLayoutManager
+        }
+    }
+
+    private fun observeNotes() {
+        homeViewModel.notes.observe(viewLifecycleOwner) {
+            homeListAdapter.apply {
+                addItems(it)
+                notifyItemRangeChanged(0, itemCount)
+            }
+        }
     }
 
     private fun setupListeners() {

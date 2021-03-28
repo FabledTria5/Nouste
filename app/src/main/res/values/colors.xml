@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="grayText">#6f6f70</color>
+    <color name="checkbox_checked">#ff0606</color>
 </resources>

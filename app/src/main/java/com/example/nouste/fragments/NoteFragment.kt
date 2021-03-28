@@ -1,15 +1,6 @@
 package com.example.nouste.fragments
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.nouste.R
+import com.example.nouste.adapters.NoteFragmentAdapter
+import com.example.nouste.data.tables.Note
+import com.example.nouste.data.tables.ToDo
 import com.example.nouste.databinding.FragmentNoteBinding
 import com.example.nouste.viewmodels.NoteViewModel
+import com.google.android.material.tabs.TabLayout
 
 class NoteFragment : Fragment() {
 
@@ -48,50 +44,57 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupActionBar(view)
+        setupViewPager()
+        setupTabs()
         setupListeners()
-        if (args.noteId > 0) loadNote()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == IMAGE_REQUEST_CODE && data != null) {
-            binding.rivNoteImage.setImageBitmap(getCapturedImage(data.data))
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun getCapturedImage(data: Uri?): Bitmap {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && data != null) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(requireActivity().contentResolver, data)
-            )
-        } else MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, data)
     }
 
     private fun setupListeners() {
-        binding.btnAddImage.setOnClickListener {
-            val photoPickIntent = Intent(Intent.ACTION_GET_CONTENT)
-            photoPickIntent.type = "image/"
-            startActivityForResult(photoPickIntent, IMAGE_REQUEST_CODE)
+        binding.btnSaveNote.setOnClickListener {
+            getData()
         }
+    }
 
-        binding.etNoteTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    private fun getData() {
+        val fragments = requireActivity().supportFragmentManager.fragments
+        var noteData: Note? = null
+        var todosData: List<ToDo>? = null
+        for (fragment in fragments) {
+            if (fragment is NoteEditFragment) {
+                noteData = fragment.getData()
+            } else if (fragment is TodoListFragment) {
+                todosData = fragment.getItems()
+            }
+        }
+        noteViewModel.saveNote(noteData, todosData)
+        requireView().findNavController().navigate(R.id.returnToHome)
+    }
+
+    private fun setupViewPager() {
+        val viewPagerAdapter =
+            NoteFragmentAdapter(
+                requireActivity().supportFragmentManager,
+                lifecycle,
+                noteId = args.noteId
+            )
+        binding.viewPager.apply {
+            adapter = viewPagerAdapter
+            isUserInputEnabled = false
+        }
+    }
+
+    private fun setupTabs() {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) binding.viewPager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
 
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
 
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().isEmpty()) {
-                    binding.textInputLayout2.error = "Note must have title!"
-                    binding.isInputValid = false
-                } else {
-                    binding.isInputValid = true
-                    binding.textInputLayout2.error = null
-                }
             }
         })
     }
@@ -104,9 +107,5 @@ class NoteFragment : Fragment() {
             setDisplayShowTitleEnabled(false)
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         }
-    }
-
-    private fun loadNote() {
-
     }
 }

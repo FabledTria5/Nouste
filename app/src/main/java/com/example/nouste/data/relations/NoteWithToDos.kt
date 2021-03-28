@@ -6,7 +6,7 @@ import com.example.nouste.data.tables.Note
 import com.example.nouste.data.tables.ToDo
 
 data class NoteWithToDos(
-    @Embedded val note: Note,
-    @Relation(parentColumn = "id", entity = ToDo::class, entityColumn = "noteId")
-    val todos: List<ToDo>
+    @Embedded val note: Note?,
+    @Relation(parentColumn = "noteTitle", entity = ToDo::class, entityColumn = "noteTitle")
+    val todos: List<ToDo>?
 )

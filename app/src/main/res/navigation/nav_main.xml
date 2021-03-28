@@ -18,5 +18,8 @@
         <argument
             android:name="noteId"
             app:argType="integer" />
+        <action
+            android:id="@+id/returnToHome"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
