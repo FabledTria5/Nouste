@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.data.relations.NoteWithToDos
+import kotlin.random.Random
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
@@ -19,7 +21,8 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
 
         fun bind(position: Int) {
             noteTitle.text = notesList[position].note?.noteTitle
-            
+            val num = Random.nextInt(700, 1000)
+            (itemView as CardView).layoutParams.height = num
         }
     }
 

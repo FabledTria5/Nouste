@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.HomeListAdapter
 import com.example.nouste.databinding.FragmentHomeBinding
 import com.example.nouste.viewmodels.HomeViewModel
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 
 class HomeFragment : Fragment() {
 
@@ -46,11 +47,11 @@ class HomeFragment : Fragment() {
         homeListAdapter = HomeListAdapter()
         binding.rvNotesList.apply {
             adapter = homeListAdapter
-            val flexBoxLayoutManager = FlexboxLayoutManager(context)
-            flexBoxLayoutManager.flexDirection = FlexDirection.COLUMN
-            flexBoxLayoutManager.justifyContent = JustifyContent.FLEX_START
-            layoutManager = flexBoxLayoutManager
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
+        val dividerItemDecorator = DividerItemDecoration(context, RecyclerView.VERTICAL)
+        dividerItemDecorator.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider, null)!!)
+        binding.rvNotesList.addItemDecoration(dividerItemDecorator)
     }
 
     private fun observeNotes() {
