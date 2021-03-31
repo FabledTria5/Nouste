@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="date"
             type="String" />
@@ -11,7 +12,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -87,11 +89,10 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="@color/grayText"
-                app:hintTextColor="@color/grayText"
+                app:hintTextColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:startIconDrawable="@drawable/ic_search"
-                tools:targetApi="p">
+                app:startIconDrawable="@drawable/ic_search">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSearchField"
@@ -110,7 +111,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:paddingStart="@dimen/_10sdp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_140sdp"
-    android:layout_height="@dimen/_170sdp"
+    android:layout_height="wrap_content"
     android:elevation="4dp"
-    android:maxHeight="@dimen/_230sdp"
-    app:cardBackgroundColor="@color/checkbox_checked"
     app:cardCornerRadius="@dimen/_7sdp"
     app:cardElevation="7dp">
 
@@ -20,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/karla_bold"
-            android:paddingStart="@dimen/_5sdp"
+            android:maxWidth="@dimen/_120sdp"
             android:paddingTop="@dimen/_5sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_18ssp"
@@ -31,7 +29,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTodoItems"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             android:paddingHorizontal="@dimen/_5sdp"
             android:paddingTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"

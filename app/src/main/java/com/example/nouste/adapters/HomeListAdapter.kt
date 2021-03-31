@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.data.relations.NoteWithToDos
-import kotlin.random.Random
+import com.example.nouste.utils.getSubList
+import com.google.android.material.card.MaterialCardView
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
@@ -21,8 +22,17 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
 
         fun bind(position: Int) {
             noteTitle.text = notesList[position].note?.noteTitle
-            val num = Random.nextInt(700, 1000)
-            (itemView as CardView).layoutParams.height = num
+            if (!notesList[position].todos.isNullOrEmpty()) {
+                todosList.apply {
+                    adapter = NotesWithTodosAdapter().also {
+                        it.addItems(notesList[position].todos!!.getSubList(4))
+                        it.notifyItemRangeChanged(0, notesList[position].todos!!.count())
+                    }
+                    layoutManager = LinearLayoutManager(itemView.context)
+                }
+            }
+
+            (itemView as MaterialCardView).getChildAt(0).setBackgroundResource(R.drawable.main_gradient)
         }
     }
 
@@ -37,5 +47,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
     override fun getItemCount() = notesList.count()
 
     fun addItems(notes: List<NoteWithToDos>) = notesList.addAll(notes)
+
+    fun clearItems() = notesList.clear()
 
 }

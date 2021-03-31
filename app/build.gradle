@@ -87,4 +87,6 @@ dependencies {
 
     // Rounded ImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation 'co.revely:gradient:1.0.1'
 }

@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
     private fun observeNotes() {
         homeViewModel.notes.observe(viewLifecycleOwner) {
             homeListAdapter.apply {
+                clearItems()
                 addItems(it)
                 notifyItemRangeChanged(0, itemCount)
             }

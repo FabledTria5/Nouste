@@ -13,7 +13,7 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:hint="@string/note_title"
             android:inputType="text|textNoSuggestions|textMultiLine"
-            app:boxBackgroundColor="@android:color/transparent"
+            app:boxBackgroundColor="@android:color/white"
             app:boxStrokeColor="@color/grayText"
             app:errorEnabled="true"
             app:hintTextColor="@color/grayText"

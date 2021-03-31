@@ -2,6 +2,7 @@ package com.example.nouste.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -49,9 +50,20 @@ class NoteFragment : Fragment() {
         setupListeners()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> requireView().findNavController().popBackStack()
+        }
+        return true
+    }
+
     private fun setupListeners() {
         binding.btnSaveNote.setOnClickListener {
             getData()
+        }
+
+        binding.btnBack.setOnClickListener {
+            requireView().findNavController().popBackStack()
         }
     }
 
@@ -102,10 +114,7 @@ class NoteFragment : Fragment() {
     private fun setupActionBar(view: View) {
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.noteToolBar))
         (activity as AppCompatActivity).supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(false)
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         }
     }
 }
