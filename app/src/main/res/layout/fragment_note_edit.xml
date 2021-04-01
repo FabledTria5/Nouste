@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/etNoteText"
             app:riv_corner_radius="10dip" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:background="@color/white"
@@ -71,18 +71,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:src="@drawable/ic_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/black" />
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/btnSetGradient"
+                android:id="@+id/ivCurrentGradient"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/main_gradient"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etNoteText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnAddImage"
+                app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="30dip" />
 
             <ImageView
@@ -90,9 +93,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:src="@drawable/ic_arrow_forward" />
+                android:src="@drawable/ic_arrow_forward"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rvGradientsList"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGradientsList"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivCurrentGradient"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
