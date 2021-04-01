@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.HomeListAdapter
 import com.example.nouste.databinding.FragmentHomeBinding
-import com.example.nouste.utils.Gradients
 import com.example.nouste.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {

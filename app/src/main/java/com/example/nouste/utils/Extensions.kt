@@ -1,5 +1,6 @@
 package com.example.nouste.utils
 
+import android.animation.ObjectAnimator
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
@@ -17,7 +18,8 @@ fun <T> List<T>.getSubList(endIndex: Int): List<T> {
     }
 }
 
-fun Drawable.convertToByteArray(): ByteArray {
+fun Drawable?.convertToByteArray(): ByteArray? {
+    if (this == null) return null
     val stream = ByteArrayOutputStream()
     (this as BitmapDrawable).bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
     return stream.toByteArray()
@@ -31,7 +33,7 @@ fun View.hide() {
     this.visibility = View.GONE
 }
 
-fun RoundedImageView.setGradient(gradient: Gradients) {
+fun RoundedImageView.setImageGradient(gradient: Gradients) {
     RevelyGradient
         .linear()
         .colors(
@@ -42,4 +44,24 @@ fun RoundedImageView.setGradient(gradient: Gradients) {
         )
         .angle(45f)
         .on(this)
+}
+
+fun View.setGradient(gradient: Gradients) {
+    RevelyGradient
+        .linear()
+        .colors(
+            intArrayOf(
+                Color.parseColor(gradient.startColor),
+                Color.parseColor(gradient.endColor)
+            )
+        )
+        .angle(45f)
+        .onBackgroundOf(this)
+}
+
+fun View.rotate(startDegree: Float) {
+    val anim = ObjectAnimator
+        .ofFloat(this, "rotation", startDegree, startDegree + 180)
+    anim.duration = 500
+    anim.start()
 }

@@ -80,6 +80,7 @@ class NoteFragment : Fragment() {
         }
         noteViewModel.saveNote(noteData, todosData)
         requireView().findNavController().navigate(R.id.returnToHome)
+
     }
 
     private fun setupViewPager() {

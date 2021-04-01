@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.adapters.listeners.OnGradientClickListener
 import com.example.nouste.utils.Gradients
-import com.example.nouste.utils.setGradient
+import com.example.nouste.utils.setImageGradient
 import com.makeramen.roundedimageview.RoundedImageView
 
 class GradientAdapter(private val onGradientClickListener: OnGradientClickListener) :
@@ -20,7 +20,7 @@ class GradientAdapter(private val onGradientClickListener: OnGradientClickListen
         private val gradientButton = itemView.findViewById<RoundedImageView>(R.id.btnSelectGradient)
 
         fun bind(position: Int) {
-            gradientButton.setGradient(gradient = gradientsList[position])
+            gradientButton.setImageGradient(gradient = gradientsList[position])
             itemView.setOnClickListener {
                 onGradientClickListener.onClick(gradient = gradientsList[position])
             }

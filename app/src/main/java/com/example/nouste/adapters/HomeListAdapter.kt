@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.data.relations.NoteWithToDos
+import com.example.nouste.utils.Gradients
 import com.example.nouste.utils.getSubList
+import com.example.nouste.utils.setGradient
 import com.google.android.material.card.MaterialCardView
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
@@ -20,19 +22,21 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
         private val noteTitle = itemView.findViewById<TextView>(R.id.tvNoteTitle)
         private val todosList = itemView.findViewById<RecyclerView>(R.id.rvTodoItems)
 
-        fun bind(position: Int) {
-            noteTitle.text = notesList[position].note?.noteTitle
-            if (!notesList[position].todos.isNullOrEmpty()) {
+        fun bind(fullNote: NoteWithToDos) {
+
+            noteTitle.text = fullNote.note.noteTitle
+            if (!fullNote.todos.isNullOrEmpty()) {
                 todosList.apply {
                     adapter = NotesWithTodosAdapter().also {
-                        it.addItems(notesList[position].todos!!.getSubList(4))
-                        it.notifyItemRangeChanged(0, notesList[position].todos!!.count())
+                        it.addItems(fullNote.todos.getSubList(4))
+                        it.notifyItemRangeChanged(0, fullNote.todos.count())
                     }
                     layoutManager = LinearLayoutManager(itemView.context)
                 }
             }
 
-            (itemView as MaterialCardView).getChildAt(0).setBackgroundResource(R.drawable.main_gradient)
+            (itemView as MaterialCardView).getChildAt(0)
+                .setGradient(gradient = Gradients.values()[fullNote.note.noteGradient])
         }
     }
 
@@ -41,7 +45,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
     )
 
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
-        holder.bind(position = position)
+        holder.bind(notesList[position])
     }
 
     override fun getItemCount() = notesList.count()

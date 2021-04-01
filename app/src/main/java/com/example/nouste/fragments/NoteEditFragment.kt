@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.GradientAdapter
@@ -23,6 +24,7 @@ import com.example.nouste.adapters.listeners.OnGradientClickListener
 import com.example.nouste.data.tables.Note
 import com.example.nouste.databinding.FragmentNoteEditBinding
 import com.example.nouste.utils.*
+import com.example.nouste.viewmodels.NoteEditViewModel
 
 class NoteEditFragment : Fragment() {
 
@@ -40,7 +42,11 @@ class NoteEditFragment : Fragment() {
         }
     }
 
+    private val noteEditViewModel: NoteEditViewModel by viewModels()
+
     private lateinit var binding: FragmentNoteEditBinding
+
+    private var startDegree = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +107,8 @@ class NoteEditFragment : Fragment() {
 
         binding.btnShowGradients.setOnClickListener {
             binding.rvGradientsList.apply {
+                it.rotate(startDegree = startDegree)
+                startDegree += 180
                 if (isVisible) hide() else show()
             }
         }
@@ -113,7 +121,8 @@ class NoteEditFragment : Fragment() {
             adapter =
                 GradientAdapter(object : OnGradientClickListener {
                     override fun onClick(gradient: Gradients) {
-                        binding.ivCurrentGradient.setGradient(gradient = gradient)
+                        binding.ivCurrentGradient.setImageGradient(gradient = gradient)
+                        noteEditViewModel.currentGradient = gradient
                     }
                 }).also {
                     it.addGradients(Gradients.values())
@@ -131,7 +140,7 @@ class NoteEditFragment : Fragment() {
             0,
             noteTitle = binding.etNoteTitle.text.toString(),
             noteText = binding.etNoteText.text.toString(),
-            noteGradient = R.drawable.main_gradient,
+            noteGradient = noteEditViewModel.currentGradient.ordinal,
             noteImage = binding.rivNoteImage.drawable.convertToByteArray()
         )
     }
