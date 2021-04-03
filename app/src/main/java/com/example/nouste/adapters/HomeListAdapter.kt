@@ -3,6 +3,7 @@ package com.example.nouste.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,12 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
 
             (itemView as MaterialCardView).getChildAt(0)
                 .setGradient(gradient = Gradients.values()[fullNote.note.noteGradient])
+
+            itemView.setOnLongClickListener {
+                val animZoom = AnimationUtils.loadAnimation(it.context, R.anim.zoom_in)
+                it.startAnimation(animZoom)
+                return@setOnLongClickListener true
+            }
         }
     }
 
