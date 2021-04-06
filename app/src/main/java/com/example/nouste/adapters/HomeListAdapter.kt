@@ -75,7 +75,7 @@ class HomeListAdapter(private val menuEventListener: MenuEventListener) :
     override fun getItemCount() = notesList.count()
 
     fun setData(notes: List<NoteWithToDos>) {
-        val diffUtil = MyDiffUtil(notesList, notes)
+        val diffUtil = NoteDiffUtil(notesList, notes)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         notesList = notes
         diffResults.dispatchUpdatesTo(this)

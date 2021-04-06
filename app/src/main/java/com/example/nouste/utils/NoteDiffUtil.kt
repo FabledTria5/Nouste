@@ -1,9 +1,9 @@
-package com.example.nouste.adapters
+package com.example.nouste.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.nouste.data.relations.NoteWithToDos
 
-class MyDiffUtil(
+class NoteDiffUtil(
     private val oldList: List<NoteWithToDos>,
     private val newList: List<NoteWithToDos>
 ) : DiffUtil.Callback() {
