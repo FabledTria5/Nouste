@@ -1,6 +1,7 @@
 package com.example.nouste.data.repository
 
 import com.example.nouste.data.dao.NoteDao
+import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.data.tables.Note
 import com.example.nouste.data.tables.ToDo
 
@@ -13,5 +14,9 @@ class NotesRepository(private val noteDao: NoteDao) {
     }
 
     fun getNotes() = noteDao.getNotesWithTodos()
+
+    suspend fun deleteNote(noteWithToDos: NoteWithToDos) {
+        noteDao.deleteNoteWithTodos(noteWithToDos = noteWithToDos)
+    }
 
 }

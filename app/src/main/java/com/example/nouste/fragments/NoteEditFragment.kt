@@ -23,6 +23,7 @@ import com.example.nouste.adapters.GradientAdapter
 import com.example.nouste.adapters.listeners.OnGradientClickListener
 import com.example.nouste.data.tables.Note
 import com.example.nouste.databinding.FragmentNoteEditBinding
+import com.example.nouste.enums.Gradients
 import com.example.nouste.utils.*
 import com.example.nouste.viewmodels.NoteEditViewModel
 

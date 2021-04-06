@@ -18,7 +18,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         notesRepository = NotesRepository(noteDao = noteDao)
     }
 
-    fun saveNote(note: Note?, todosData: List<ToDo>?, ) = viewModelScope.launch {
+    fun saveNote(note: Note?, todosData: List<ToDo>?) = viewModelScope.launch {
         if (!todosData.isNullOrEmpty()) {
             notesRepository.saveNote(note, todosData)
         }

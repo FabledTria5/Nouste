@@ -1,7 +1,7 @@
 package com.example.nouste.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.nouste.utils.Gradients
+import com.example.nouste.enums.Gradients
 
 class NoteEditViewModel: ViewModel() {
 

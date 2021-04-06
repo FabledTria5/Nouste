@@ -6,9 +6,13 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.animation.AnimationUtils
 import co.revely.gradient.RevelyGradient
+import com.example.nouste.R
+import com.example.nouste.enums.Gradients
 import com.makeramen.roundedimageview.RoundedImageView
 import java.io.ByteArrayOutputStream
+import kotlin.math.roundToInt
 
 fun <T> List<T>.getSubList(endIndex: Int): List<T> {
     return if (this.count() > endIndex) {
@@ -65,3 +69,11 @@ fun View.rotate(startDegree: Float) {
     anim.duration = 500
     anim.start()
 }
+
+fun View.setZoom(isZoom: Boolean) {
+    val animationResource = if (isZoom) R.anim.zoom_in else R.anim.zoom_out
+    val animation = AnimationUtils.loadAnimation(this.context, animationResource)
+    this.startAnimation(animation)
+}
+
+fun Int.toDp(density: Float) = (this * density).roundToInt()

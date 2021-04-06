@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.nouste.data.db.NotesDatabase
 import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.data.repository.NotesRepository
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +28,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         "${dateFormatter.format(Date())} ${
             Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         }, ${monthFormatter.format(Date())}"
+    }
+
+    fun deleteNote(noteWithToDos: NoteWithToDos) = viewModelScope.launch {
+        notesRepository.deleteNote(noteWithToDos)
     }
 }
 

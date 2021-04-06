@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.HomeListAdapter
+import com.example.nouste.adapters.listeners.MenuEventListener
+import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.databinding.FragmentHomeBinding
+import com.example.nouste.enums.MenuEvents
+import com.example.nouste.utils.GridSpacingItemDecorator
+import com.example.nouste.utils.toDp
 import com.example.nouste.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -44,21 +48,33 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        homeListAdapter = HomeListAdapter()
+        homeListAdapter = HomeListAdapter(object : MenuEventListener {
+            override fun onEvent(menuEvent: MenuEvents, noteWithToDos: NoteWithToDos) {
+                when (menuEvent) {
+                    MenuEvents.Change -> Toast.makeText(context, "Change", Toast.LENGTH_SHORT)
+                        .show()
+                    MenuEvents.Delete -> homeViewModel.deleteNote(noteWithToDos)
+                }
+            }
+        })
         binding.rvNotesList.apply {
             adapter = homeListAdapter
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            itemAnimator = DefaultItemAnimator()
         }
-        val dividerItemDecorator = DividerItemDecoration(context, RecyclerView.VERTICAL)
-        dividerItemDecorator.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider, null)!!)
-        binding.rvNotesList.addItemDecoration(dividerItemDecorator)
+        binding.rvNotesList.addItemDecoration(
+            GridSpacingItemDecorator(
+                spanCount = 2,
+                spacing = 20.toDp(resources.displayMetrics.density),
+                includeEdge = true
+            )
+        )
     }
 
     private fun observeNotes() {
         homeViewModel.notes.observe(viewLifecycleOwner) {
             homeListAdapter.apply {
-                clearItems()
-                addItems(it)
+                setData(it)
                 notifyItemRangeChanged(0, itemCount)
             }
         }

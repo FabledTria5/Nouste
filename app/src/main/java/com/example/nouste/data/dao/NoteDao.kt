@@ -1,8 +1,6 @@
 package com.example.nouste.data.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.data.tables.Note
@@ -24,7 +22,18 @@ interface NoteDao {
         insertTodos(todos = todos)
     }
 
+    suspend fun deleteNoteWithTodos(noteWithToDos: NoteWithToDos) {
+        deleteNote(note = noteWithToDos.note)
+        noteWithToDos.todos?.let { deleteTodos(todos = it) }
+    }
+
     @Query("SELECT * FROM table_notes")
     fun getNotesWithTodos(): LiveData<List<NoteWithToDos>>
+
+    @Delete(entity = Note::class)
+    suspend fun deleteNote(note: Note)
+
+    @Delete(entity = ToDo::class)
+    suspend fun deleteTodos(todos: List<ToDo>)
 
 }

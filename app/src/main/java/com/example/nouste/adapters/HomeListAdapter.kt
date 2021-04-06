@@ -3,20 +3,23 @@ package com.example.nouste.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
+import com.example.nouste.adapters.listeners.MenuEventListener
 import com.example.nouste.data.relations.NoteWithToDos
-import com.example.nouste.utils.Gradients
-import com.example.nouste.utils.getSubList
-import com.example.nouste.utils.setGradient
+import com.example.nouste.enums.Gradients
+import com.example.nouste.enums.MenuEvents
+import com.example.nouste.utils.*
 import com.google.android.material.card.MaterialCardView
 
-class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
+class HomeListAdapter(private val menuEventListener: MenuEventListener) :
+    RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
-    private val notesList = arrayListOf<NoteWithToDos>()
+    private var notesList = emptyList<NoteWithToDos>()
 
     inner class HomeListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -24,7 +27,6 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
         private val todosList = itemView.findViewById<RecyclerView>(R.id.rvTodoItems)
 
         fun bind(fullNote: NoteWithToDos) {
-
             noteTitle.text = fullNote.note.noteTitle
             if (!fullNote.todos.isNullOrEmpty()) {
                 todosList.apply {
@@ -40,9 +42,24 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
                 .setGradient(gradient = Gradients.values()[fullNote.note.noteGradient])
 
             itemView.setOnLongClickListener {
-                val animZoom = AnimationUtils.loadAnimation(it.context, R.anim.zoom_in)
-                it.startAnimation(animZoom)
+                it.setZoom(true)
+                openOptions(fullNote)
                 return@setOnLongClickListener true
+            }
+        }
+
+        private fun openOptions(fullNote: NoteWithToDos) {
+            PopupMenu(itemView.context, itemView.findViewById(R.id.menuAnchor)).also {
+                it.menuInflater.inflate(R.menu.popup_menu, it.menu)
+                it.setOnDismissListener { itemView.setZoom(false) }
+                it.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.btnChange -> menuEventListener.onEvent(MenuEvents.Change, fullNote)
+                        R.id.btnDelete -> menuEventListener.onEvent(MenuEvents.Delete, fullNote)
+                    }
+                    return@setOnMenuItemClickListener true
+                }
+                it.show()
             }
         }
     }
@@ -57,8 +74,11 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
 
     override fun getItemCount() = notesList.count()
 
-    fun addItems(notes: List<NoteWithToDos>) = notesList.addAll(notes)
-
-    fun clearItems() = notesList.clear()
+    fun setData(notes: List<NoteWithToDos>) {
+        val diffUtil = MyDiffUtil(notesList, notes)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        notesList = notes
+        diffResults.dispatchUpdatesTo(this)
+    }
 
 }

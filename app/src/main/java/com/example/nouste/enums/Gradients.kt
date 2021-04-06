@@ -1,4 +1,4 @@
-package com.example.nouste.utils
+package com.example.nouste.enums
 
 enum class Gradients(val startColor: String, val endColor: String) {
 

@@ -16,15 +16,25 @@
             android:id="@+id/tvNoteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/karla_bold"
-            android:maxWidth="@dimen/_120sdp"
+            android:maxWidth="@dimen/_115sdp"
+            android:paddingStart="@dimen/_10sdp"
             android:paddingTop="@dimen/_5sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_18ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/menuAnchor"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/ic_move"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTodoItems"

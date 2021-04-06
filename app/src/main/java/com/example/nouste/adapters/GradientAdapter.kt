@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.adapters.listeners.OnGradientClickListener
-import com.example.nouste.utils.Gradients
+import com.example.nouste.enums.Gradients
 import com.example.nouste.utils.setImageGradient
 import com.makeramen.roundedimageview.RoundedImageView
 
