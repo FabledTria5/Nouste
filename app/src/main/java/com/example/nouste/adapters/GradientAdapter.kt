@@ -14,6 +14,7 @@ class GradientAdapter(private val onGradientClickListener: OnGradientClickListen
     RecyclerView.Adapter<GradientAdapter.GradientViewHolder>() {
 
     private val gradientsList = arrayListOf<Gradients>()
+    private var selectedColor: RoundedImageView? = null
 
     inner class GradientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -22,7 +23,12 @@ class GradientAdapter(private val onGradientClickListener: OnGradientClickListen
         fun bind(position: Int) {
             gradientButton.setImageGradient(gradient = gradientsList[position])
             itemView.setOnClickListener {
-                onGradientClickListener.onClick(gradient = gradientsList[position])
+                if (selectedColor != gradientButton) {
+                    onGradientClickListener.onClick(gradient = gradientsList[position])
+                    gradientButton.borderWidth = 8f
+                    selectedColor?.borderWidth = 0f
+                    selectedColor = gradientButton
+                }
             }
         }
     }

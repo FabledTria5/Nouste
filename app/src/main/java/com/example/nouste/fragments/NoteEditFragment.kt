@@ -99,7 +99,7 @@ class NoteEditFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().isEmpty()) {
-                    binding.textInputLayout2.error = "Note must have title!"
+                    binding.textInputLayout2.error = getString(R.string.note_name_error)
                 } else {
                     binding.textInputLayout2.error = null
                 }

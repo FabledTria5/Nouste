@@ -6,10 +6,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/btnSelectGradient"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_3sdp"
         android:scaleType="centerCrop"
+        android:padding="2dp"
         android:src="@drawable/main_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
