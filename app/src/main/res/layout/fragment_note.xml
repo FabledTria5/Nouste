@@ -65,7 +65,8 @@
                     android:src="@drawable/ic_arrow_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/back_button" />
 
                 <TextView
                     android:id="@+id/btnBack"
@@ -89,7 +90,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/noteToolBar"
                     app:layout_constraintEnd_toEndOf="@+id/noteToolBar"
                     app:layout_constraintTop_toTopOf="@+id/noteToolBar"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"
+                    android:contentDescription="@string/create_button" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

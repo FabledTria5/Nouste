@@ -23,7 +23,8 @@
             android:background="@drawable/ripple_oval"
             android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/add_todo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

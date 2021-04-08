@@ -11,4 +11,11 @@
     <string name="change">Change</string>
     <string name="delete">Delete</string>
     <string name="note_name_error">Note must have title!</string>
+    <string name="back_button">Back button</string>
+    <string name="create_button">Create button</string>
+    <string name="select_image">Select image</string>
+    <string name="open_gradients">Open gradients</string>
+    <string name="logotype">Logotype</string>
+    <string name="menu_anchor">Menu anchor</string>
+    <string name="add_todo">Add todo</string>
 </resources>
