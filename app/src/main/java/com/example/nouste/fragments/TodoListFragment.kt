@@ -42,7 +42,6 @@ class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
-
     }
 
     private fun setupListeners() {

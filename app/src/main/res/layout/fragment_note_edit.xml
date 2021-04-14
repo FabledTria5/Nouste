@@ -70,12 +70,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:contentDescription="@string/select_image"
                 android:src="@drawable/ic_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black"
-                android:contentDescription="@string/select_image" />
+                app:tint="@color/black" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivCurrentGradient"
@@ -94,16 +94,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:contentDescription="@string/open_gradients"
                 android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rvGradientsList"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/open_gradients" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGradientsList"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_150sdp"
                 android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivCurrentGradient"
