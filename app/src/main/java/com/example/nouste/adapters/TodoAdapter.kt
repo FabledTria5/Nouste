@@ -22,7 +22,10 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
         fun bind(position: Int) {
             todoTitle.setText(todosList[position].taskName, TextView.BufferType.EDITABLE)
-            if (todosList[position].done) todoTitle.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            if (todosList[position].done) {
+                todoTitle.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                checkBox.isChecked = true
+            }
             addDoneListener(position)
             addTitleListener(position)
         }
@@ -59,6 +62,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     override fun getItemCount() = todosList.count()
 
     fun addTodo(task: ToDo) = todosList.add(task)
+
+    fun addTodos(items: List<ToDo>) = todosList.addAll(items)
 
     fun getTodos() = todosList
 

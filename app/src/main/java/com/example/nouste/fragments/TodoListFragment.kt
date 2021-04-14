@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.TodoAdapter
 import com.example.nouste.data.tables.ToDo
 import com.example.nouste.databinding.FragmentTodoListBinding
+import com.example.nouste.viewmodels.TodosListViewModel
 
 class TodoListFragment : Fragment() {
 
@@ -27,6 +29,8 @@ class TodoListFragment : Fragment() {
         }
     }
 
+    private val todosListViewModel: TodosListViewModel by viewModels()
+
     private lateinit var binding: FragmentTodoListBinding
     private lateinit var todosAdapter: TodoAdapter
 
@@ -42,6 +46,14 @@ class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
+        if (requireArguments().getInt(CURRENT_NOTE) > 0) loadTodos()
+    }
+
+    private fun loadTodos() {
+        todosListViewModel.getTodos(requireArguments().getInt(CURRENT_NOTE)).also {
+            todosAdapter.addTodos(items = it)
+            todosAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun setupListeners() {

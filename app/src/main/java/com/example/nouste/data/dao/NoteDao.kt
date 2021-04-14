@@ -30,6 +30,12 @@ interface NoteDao {
     @Query("SELECT * FROM table_notes")
     fun getNotesWithTodos(): LiveData<List<NoteWithToDos>>
 
+    @Query(value = "SELECT * FROM table_notes WHERE id = :noteId")
+    fun getNote(noteId: Int): Note
+
+    @Query(value = "SELECT * FROM table_todo WHERE noteTitle = (SELECT noteTitle FROM table_notes WHERE id = :noteId)")
+    fun getTodos(noteId: Int): List<ToDo>
+
     @Delete(entity = Note::class)
     suspend fun deleteNote(note: Note)
 

@@ -67,8 +67,21 @@ class NoteEditFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == NoteFragment.IMAGE_REQUEST_CODE && data != null) {
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == NoteFragment.IMAGE_REQUEST_CODE
+            && data != null
+        ) {
             binding.rivNoteImage.setImageBitmap(getCapturedImage(data.data))
+        }
+    }
+
+
+    private fun loadNote() {
+        noteEditViewModel.getNote(requireArguments().getInt(CURRENT_NOTE)).apply {
+            binding.etNoteTitle.setText(noteTitle)
+            binding.etNoteText.setText(noteText)
+            binding.ivCurrentGradient.setImageGradient(gradient = Gradients.values()[noteGradient])
+            if (noteImage != null) binding.rivNoteImage.setImageBitmap(noteImage.toDrawable())
         }
     }
 
@@ -132,10 +145,6 @@ class NoteEditFragment : Fragment() {
         }
     }
 
-    private fun loadNote() {
-
-    }
-
     fun getData(): Note {
         return Note(
             0,
@@ -146,3 +155,4 @@ class NoteEditFragment : Fragment() {
         )
     }
 }
+

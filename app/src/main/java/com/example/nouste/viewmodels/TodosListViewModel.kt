@@ -2,13 +2,10 @@ package com.example.nouste.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import com.example.nouste.data.db.NotesDatabase
 import com.example.nouste.data.repository.NotesRepository
-import com.example.nouste.enums.Gradients
-import kotlinx.coroutines.runBlocking
 
-class NoteEditViewModel(application: Application): AndroidViewModel(application) {
+class TodosListViewModel(application: Application): AndroidViewModel(application) {
 
     private val notesRepository: NotesRepository
 
@@ -17,8 +14,6 @@ class NoteEditViewModel(application: Application): AndroidViewModel(application)
         notesRepository = NotesRepository(noteDao = noteDao)
     }
 
-    var currentGradient: Gradients = Gradients.ORANGE
-
-    fun getNote(noteId: Int) = notesRepository.getNote(noteId = noteId)
+    fun getTodos(noteId: Int) = notesRepository.getTodos(noteId = noteId)
 
 }

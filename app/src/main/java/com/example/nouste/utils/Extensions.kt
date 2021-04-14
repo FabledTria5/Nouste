@@ -2,6 +2,7 @@ package com.example.nouste.utils
 
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -77,3 +78,6 @@ fun View.setZoom(isZoom: Boolean) {
 }
 
 fun Int.toDp(density: Float) = (this * density).roundToInt()
+
+fun ByteArray.toDrawable(): Bitmap = BitmapFactory.decodeByteArray(this, 0, this.size)
+
