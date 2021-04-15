@@ -2,7 +2,6 @@ package com.example.nouste.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +77,8 @@ class NoteFragment : Fragment() {
                 todosData = fragment.getItems()
             }
         }
-        noteViewModel.saveNote(noteData, todosData)
+        if (args.noteId != 0) noteViewModel.updateNote(noteData, todosData)
+        else noteViewModel.saveNote(noteData, todosData)
         requireView().findNavController().navigate(R.id.returnToHome)
     }
 

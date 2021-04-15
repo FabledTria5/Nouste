@@ -13,6 +13,11 @@ class NotesRepository(private val noteDao: NoteDao) {
         noteDao.connectTodosToNote(note = note, todos = todosData)
     }
 
+    suspend fun updateNote(note: Note?, todosData: List<ToDo>) {
+        noteDao.updateNote(note!!)
+        noteDao.updateTodos(todosData)
+    }
+
     suspend fun deleteNote(noteWithToDos: NoteWithToDos) =
         noteDao.deleteNoteWithTodos(noteWithToDos = noteWithToDos)
 

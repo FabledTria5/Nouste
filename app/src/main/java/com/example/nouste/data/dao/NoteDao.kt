@@ -15,19 +15,13 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTodos(todos: List<ToDo>)
 
-    suspend fun connectTodosToNote(note: Note, todos: List<ToDo>) {
-        for (todo in todos) {
-            todo.noteTitle = note.noteTitle
-        }
-        insertTodos(todos = todos)
-    }
+    @Update
+    suspend fun updateNote(note: Note)
 
-    suspend fun deleteNoteWithTodos(noteWithToDos: NoteWithToDos) {
-        deleteNote(note = noteWithToDos.note)
-        noteWithToDos.todos?.let { deleteTodos(todos = it) }
-    }
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun updateTodos(todosData: List<ToDo>)
 
-    @Query("SELECT * FROM table_notes")
+    @Query(value = "SELECT * FROM table_notes")
     fun getNotesWithTodos(): LiveData<List<NoteWithToDos>>
 
     @Query(value = "SELECT * FROM table_notes WHERE id = :noteId")
@@ -41,5 +35,17 @@ interface NoteDao {
 
     @Delete(entity = ToDo::class)
     suspend fun deleteTodos(todos: List<ToDo>)
+
+    suspend fun connectTodosToNote(note: Note, todos: List<ToDo>) {
+        for (todo in todos) {
+            todo.noteTitle = note.noteTitle
+        }
+        insertTodos(todos = todos)
+    }
+
+    suspend fun deleteNoteWithTodos(noteWithToDos: NoteWithToDos) {
+        deleteNote(note = noteWithToDos.note)
+        noteWithToDos.todos?.let { deleteTodos(todos = it) }
+    }
 
 }
