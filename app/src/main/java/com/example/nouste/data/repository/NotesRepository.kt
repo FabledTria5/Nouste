@@ -16,9 +16,9 @@ class NotesRepository(private val noteDao: NoteDao) {
     suspend fun deleteNote(noteWithToDos: NoteWithToDos) =
         noteDao.deleteNoteWithTodos(noteWithToDos = noteWithToDos)
 
-    fun getNote(noteId: Int) = noteDao.getNote(noteId = noteId)
+    suspend fun getNote(noteId: Int) = noteDao.getNote(noteId = noteId)
 
-    fun getTodos(noteId: Int) = noteDao.getTodos(noteId = noteId)
+    suspend fun getTodos(noteId: Int) = noteDao.getTodos(noteId = noteId)
 
     fun getNotes() = noteDao.getNotesWithTodos()
 

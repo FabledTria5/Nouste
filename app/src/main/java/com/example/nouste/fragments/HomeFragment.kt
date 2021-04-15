@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.nouste.R
 import com.example.nouste.adapters.HomeListAdapter
 import com.example.nouste.adapters.listeners.MenuEventListener
+import com.example.nouste.adapters.listeners.OnNoteClickListener
 import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.databinding.FragmentHomeBinding
 import com.example.nouste.enums.MenuEvents
@@ -53,6 +54,12 @@ class HomeFragment : Fragment() {
                     MenuEvents.Change -> Toast.makeText(context, "Change", Toast.LENGTH_SHORT)
                         .show()
                     MenuEvents.Delete -> homeViewModel.deleteNote(noteWithToDos)
+                }
+            }
+        }, object : OnNoteClickListener {
+            override fun onNoteClick(noteId: Int) {
+                HomeFragmentDirections.openNote(noteId = noteId).also {
+                    requireView().findNavController().navigate(it)
                 }
             }
         })

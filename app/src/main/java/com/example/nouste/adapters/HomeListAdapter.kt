@@ -10,13 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nouste.R
 import com.example.nouste.adapters.listeners.MenuEventListener
+import com.example.nouste.adapters.listeners.OnNoteClickListener
 import com.example.nouste.data.relations.NoteWithToDos
 import com.example.nouste.enums.Gradients
 import com.example.nouste.enums.MenuEvents
 import com.example.nouste.utils.*
 import com.google.android.material.card.MaterialCardView
 
-class HomeListAdapter(private val menuEventListener: MenuEventListener) :
+class HomeListAdapter(
+    private val menuEventListener: MenuEventListener,
+    private val onNoteClickListener: OnNoteClickListener
+) :
     RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
     private var notesList = emptyList<NoteWithToDos>()
@@ -46,6 +50,8 @@ class HomeListAdapter(private val menuEventListener: MenuEventListener) :
                 openOptions(fullNote)
                 return@setOnLongClickListener true
             }
+
+            itemView.setOnClickListener { onNoteClickListener.onNoteClick(fullNote.note.id) }
         }
 
         private fun openOptions(fullNote: NoteWithToDos) {
