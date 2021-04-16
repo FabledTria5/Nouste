@@ -15,11 +15,23 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTodos(todos: List<ToDo>)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateNote(note: Note)
-
     @Update(onConflict = OnConflictStrategy.IGNORE)
     suspend fun updateTodos(todosData: List<ToDo>)
+
+    @Query(
+        value = """UPDATE table_notes SET noteTitle = :noteTitle,
+             noteText = :noteText,
+            noteImage = :noteImage, 
+            noteGradient = :noteGradient
+            WHERE id = :id"""
+    )
+    suspend fun updateNote(
+        id: Int,
+        noteTitle: String,
+        noteText: String,
+        noteImage: ByteArray?,
+        noteGradient: Int
+    )
 
     @Query(value = "SELECT * FROM table_notes")
     fun getNotesWithTodos(): LiveData<List<NoteWithToDos>>

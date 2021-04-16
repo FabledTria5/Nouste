@@ -8,7 +8,7 @@ import com.example.nouste.data.dao.NoteDao
 import com.example.nouste.data.tables.Note
 import com.example.nouste.data.tables.ToDo
 
-@Database(entities = [Note::class, ToDo::class], version = 4, exportSchema = false)
+@Database(entities = [Note::class, ToDo::class], version = 6, exportSchema = false)
 abstract class NotesDatabase: RoomDatabase() {
 
     abstract fun noteDao(): NoteDao

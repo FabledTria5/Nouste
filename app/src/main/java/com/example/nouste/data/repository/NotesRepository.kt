@@ -8,15 +8,23 @@ import com.example.nouste.data.tables.ToDo
 class NotesRepository(private val noteDao: NoteDao) {
 
     suspend fun saveNote(note: Note?, todosData: List<ToDo>) {
-        // Note is always not null
-        noteDao.insertNote(note = note!!)
-        noteDao.connectTodosToNote(note = note, todos = todosData)
+        if (note != null) {
+            noteDao.insertNote(note = note)
+            noteDao.connectTodosToNote(note = note, todos = todosData)
+        }
     }
 
     suspend fun updateNote(note: Note?, todosData: List<ToDo>) {
-        // Note is always not null
-        noteDao.updateNote(note!!)
-        noteDao.updateTodos(todosData)
+        if (note != null) {
+            noteDao.updateNote(
+                note.id,
+                note.noteTitle,
+                note.noteText,
+                note.noteImage,
+                note.noteGradient
+            )
+        }
+        noteDao.updateTodos(todosData = todosData)
     }
 
     suspend fun deleteNote(noteWithToDos: NoteWithToDos) =
