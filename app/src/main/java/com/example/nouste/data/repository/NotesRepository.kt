@@ -14,6 +14,7 @@ class NotesRepository(private val noteDao: NoteDao) {
     }
 
     suspend fun updateNote(note: Note?, todosData: List<ToDo>) {
+        // Note is always not null
         noteDao.updateNote(note!!)
         noteDao.updateTodos(todosData)
     }

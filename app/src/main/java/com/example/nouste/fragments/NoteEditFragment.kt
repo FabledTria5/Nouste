@@ -147,7 +147,7 @@ class NoteEditFragment : Fragment() {
 
     fun getData(): Note {
         return Note(
-            0,
+            requireArguments().getInt(CURRENT_NOTE,0),
             noteTitle = binding.etNoteTitle.text.toString(),
             noteText = binding.etNoteText.text.toString(),
             noteGradient = noteEditViewModel.currentGradient.ordinal,

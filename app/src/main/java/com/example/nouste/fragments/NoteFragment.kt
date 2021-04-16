@@ -49,13 +49,6 @@ class NoteFragment : Fragment() {
         setupListeners()
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            android.R.id.home -> requireView().findNavController().popBackStack()
-//        }
-//        return true
-//    }
-
     private fun setupListeners() {
         binding.btnSaveNote.setOnClickListener {
             getData()

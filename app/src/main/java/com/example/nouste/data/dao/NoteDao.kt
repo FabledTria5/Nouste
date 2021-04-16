@@ -15,7 +15,7 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTodos(todos: List<ToDo>)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateNote(note: Note)
 
     @Update(onConflict = OnConflictStrategy.IGNORE)

@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        clearOldFragments()
         setDate()
         setupListeners()
         observeNotes()
@@ -91,16 +90,6 @@ class HomeFragment : Fragment() {
         binding.btnAddNote.setOnClickListener {
             HomeFragmentDirections.openNote(0).also {
                 requireView().findNavController().navigate(it)
-            }
-        }
-    }
-
-    private fun clearOldFragments() {
-        requireActivity().supportFragmentManager.apply {
-            for (fragment in fragments) {
-                if (fragment is NoteEditFragment || fragment is TodoListFragment) {
-                    beginTransaction().remove(fragment).commit()
-                }
             }
         }
     }
